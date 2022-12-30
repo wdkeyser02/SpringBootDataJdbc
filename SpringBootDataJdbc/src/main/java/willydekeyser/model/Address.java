@@ -4,10 +4,9 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Builder;
 
-@Table("autorities")
+@Table("Address")
 @Builder
-public record Authorities(
-		Integer id, 
-		String authority) {
+public record Address(
+		String addressLine) {
 
 }

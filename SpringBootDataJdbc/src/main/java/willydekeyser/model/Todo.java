@@ -7,7 +7,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Table;
 
+import lombok.Builder;
+
 @Table("Todo")
+@Builder
 public record Todo(
 		@Id Integer id,
 	    String title,
@@ -17,4 +20,12 @@ public record Todo(
 	    AggregateReference<Owner, Integer> owner,
 	    Set<Comment> comments) {
 
+	public void addComment(Comment comment) {
+		this.comments.add(comment);
+	}
+	
+	public void removeComment(Comment comment) {
+		this.comments.remove(comment);
+	}
+	
 }

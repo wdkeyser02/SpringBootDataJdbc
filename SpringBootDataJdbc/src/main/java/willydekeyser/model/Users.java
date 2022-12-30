@@ -3,7 +3,12 @@ package willydekeyser.model;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+import lombok.Builder;
+
+@Table("users")
+@Builder
 public record Users(
 		@Id Integer id,
 		String username,
