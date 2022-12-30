@@ -1,7 +1,5 @@
 package willydekeyser.model;
 
-import java.util.Set;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -14,15 +12,7 @@ public record Owner(
         String fullName,
         String email,
         String username,
-        Address address,
-        Set<Todo> todos) {
+        Address address) {
 
-	public void addTodo(Todo todo) {
-		this.todos.add(todo);
-	}
-	
-	public void removeTodo(Todo todo) {
-		this.todos.remove(todo);
-	}
-	
+
 }
