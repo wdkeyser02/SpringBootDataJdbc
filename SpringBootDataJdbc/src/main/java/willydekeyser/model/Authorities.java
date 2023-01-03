@@ -4,7 +4,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Builder;
 
-@Table("autorities")
+@Table("authorities")
 @Builder
 public record Authorities(
 		Integer id, 

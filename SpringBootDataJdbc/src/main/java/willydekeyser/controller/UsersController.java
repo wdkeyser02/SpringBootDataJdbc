@@ -20,7 +20,4 @@ public class UsersController {
 		return usersService.getUsers();
 	}
 	
-	
-	
-	
 }

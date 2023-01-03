@@ -1,8 +1,10 @@
 package willydekeyser.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Builder;
@@ -20,6 +22,7 @@ public record Users(
 		String firstName,
 		String lastName,
 		String emailAddress,
-		LocalDate birthdate) {
+		LocalDate birthdate,
+		@MappedCollection(idColumn = "users_id") Set<UsersAuthorities> authorities) {
 
 }
