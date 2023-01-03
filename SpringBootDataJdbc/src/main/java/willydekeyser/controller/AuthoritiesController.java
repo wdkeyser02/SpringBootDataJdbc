@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import willydekeyser.model.Authorities;
+import willydekeyser.model.dto.AuthoritiesDetails;
 import willydekeyser.service.AuthoritiesService;
 
 @RestController
@@ -26,5 +27,9 @@ public class AuthoritiesController {
 		return authoritiesService.getAuthoritiesById(id);
 	}
 	
+	@GetMapping("/authorities/{id}/details")
+	public AuthoritiesDetails getAuthoritiesDetails(@PathVariable("id") Integer id) {
+		return authoritiesService.getAuthoritiesDetails(id);
+	}
 	
 }

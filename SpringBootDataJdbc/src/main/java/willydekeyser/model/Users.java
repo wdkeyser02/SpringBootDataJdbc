@@ -23,6 +23,6 @@ public record Users(
 		String lastName,
 		String emailAddress,
 		LocalDate birthdate,
-		@MappedCollection(idColumn = "users_id") Set<UsersAuthorities> authorities) {
+		@MappedCollection(idColumn = "users_id", keyColumn = "authorities_id") Set<UsersAuthorities> authorities) {
 
 }

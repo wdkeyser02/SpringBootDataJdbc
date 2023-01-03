@@ -3,10 +3,12 @@ package willydekeyser.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import willydekeyser.model.Users;
+import willydekeyser.model.dto.UsersDetails;
 import willydekeyser.service.UsersService;
 
 @RestController
@@ -20,4 +22,13 @@ public class UsersController {
 		return usersService.getUsers();
 	}
 	
+	@GetMapping("/users/{id}")
+	public Users getAuthoritiesById(@PathVariable("id") Integer id) {
+		return usersService.getUsersById(id);
+	}
+	
+	@GetMapping("/users/{id}/details")
+	public UsersDetails getAuthoritiesDetails(@PathVariable("id") Integer id) {
+		return usersService.getUsersDetails(id);
+	}
 }
