@@ -28,7 +28,7 @@ public class UsersController {
 	}
 	
 	@GetMapping("/users/{id}/details")
-	public UsersDetails getAuthoritiesDetails(@PathVariable("id") Integer id) {
+	public UsersDetails getUsersDetails(@PathVariable("id") Integer id) {
 		return usersService.getUsersDetails(id);
 	}
 }
