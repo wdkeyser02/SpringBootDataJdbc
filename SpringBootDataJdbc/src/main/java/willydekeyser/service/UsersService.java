@@ -1,6 +1,5 @@
 package willydekeyser.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -30,9 +29,7 @@ public class UsersService {
 	
 	public UsersDetails getUsersDetails(@PathVariable("id") Integer id) {
 		Users users = usersRepository.findById(id).get();
-		List<Integer> idList = new ArrayList<>();
-		users.authorities().forEach(test -> idList.add(test.authorities()));
-		List<Authorities> authorities = authoritiesRepository.findAllById(idList);
+		List<Authorities> authorities = authoritiesRepository.findAllAuthoritiesByUsers(id);
 		return new UsersDetails(users, authorities);
 	}
 }

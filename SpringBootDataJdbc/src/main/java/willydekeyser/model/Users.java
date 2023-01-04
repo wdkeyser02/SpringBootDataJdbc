@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Builder;
 
 @Table("users")
@@ -23,6 +25,6 @@ public record Users(
 		String lastName,
 		String emailAddress,
 		LocalDate birthdate,
-		@MappedCollection(idColumn = "users_id", keyColumn = "authorities_id") Set<UsersAuthorities> authorities) {
+		@JsonIgnore @MappedCollection(idColumn = "users_id", keyColumn = "authorities_id") Set<UsersAuthorities> authorities) {
 
 }
