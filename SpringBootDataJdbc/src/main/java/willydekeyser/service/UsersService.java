@@ -3,7 +3,6 @@ package willydekeyser.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
 import willydekeyser.model.Authorities;
@@ -23,11 +22,11 @@ public class UsersService {
 		return usersRepository.findAll();
 	}
 	
-	public Users getUsersById(@PathVariable("id") Integer id) {
+	public Users getUsersById(Integer id) {
 		return usersRepository.findById(id).get();
 	}
 	
-	public UsersDetails getUsersDetails(@PathVariable("id") Integer id) {
+	public UsersDetails getUsersDetails(Integer id) {
 		Users users = usersRepository.findById(id).get();
 		List<Authorities> authorities = authoritiesRepository.findAllAuthoritiesByUsers(id);
 		return new UsersDetails(users, authorities);
