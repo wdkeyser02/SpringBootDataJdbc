@@ -1,6 +1,7 @@
 package willydekeyser.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,20 +19,32 @@ public class TutorialService {
 		return tutorialRepository.findAll();
 	}
 	
-	public Tutorial getTutorialById(Integer id) {
-		return tutorialRepository.findById(id).get();
+	public Optional<Tutorial> getTutorialById(Integer id) {
+		return tutorialRepository.findById(id);
 	}
 	
-	public Tutorial createTutorial(Tutorial owner) {
-		return tutorialRepository.save(owner);
+	public Tutorial createTutorial(Tutorial tutorial) {
+		return tutorialRepository.save(tutorial);
 	}
 	
-	public Tutorial updateTutorial(Tutorial owner) {
-		return tutorialRepository.save(owner);
+	public List<Tutorial> createListTutorial(List<Tutorial> tutorial) {
+		return tutorialRepository.saveAll(tutorial);
+	}
+	
+	public Tutorial updateTutorial(Tutorial tutorial) {
+		return tutorialRepository.save(tutorial);
+	}
+	
+	public Tutorial patchTutorial(Tutorial tutorial) {
+		return tutorialRepository.save(tutorial);
 	}
 
 	public void deleteTutorial(Integer id) {
 		tutorialRepository.deleteById(id);
+	}
+	
+	public void deleteAllTutorial() {
+		tutorialRepository.deleteAll();
 	}
 
 }

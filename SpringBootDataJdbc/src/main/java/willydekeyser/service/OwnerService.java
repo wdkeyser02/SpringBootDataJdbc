@@ -38,11 +38,23 @@ public class OwnerService {
 		return ownerRepository.save(owner);
 	}
 	
+	public List<Owner> createListOwner(List<Owner> owner) {
+		return ownerRepository.saveAll(owner);
+	}
+	
 	public Owner updateOwner(Owner owner) {
+		return ownerRepository.save(owner);
+	}
+	
+	public Owner patchOwner(Owner owner) {
 		return ownerRepository.save(owner);
 	}
 
 	public void deleteOwner(Integer id) {
 		ownerRepository.deleteById(id);
+	}
+	
+	public void deleteAllOwner() {
+		ownerRepository.deleteAll();
 	}
 }
