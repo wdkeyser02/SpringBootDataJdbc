@@ -36,7 +36,7 @@ public class OwnerController {
 	
 	@GetMapping("/{id}/details")
 	public OwnerDetails getOwnerDetails(@PathVariable("id") Integer id) {
-		return getOwnerDetails(id);
+		return ownerService.getOwnerDetails(id);
 	}
 	
 	@PostMapping
@@ -45,8 +45,8 @@ public class OwnerController {
 	}
 	
 	@PostMapping("/all")
-	public Owner createListOwner(@RequestBody Owner owner) {
-		return ownerService.createOwner(owner);
+	public List<Owner> createListOwner(@RequestBody List<Owner> owner) {
+		return ownerService.createListOwner(owner);
 	}
 	
 	@PutMapping
