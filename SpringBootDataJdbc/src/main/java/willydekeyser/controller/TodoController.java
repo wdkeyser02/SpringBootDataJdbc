@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import willydekeyser.model.Comment;
 import willydekeyser.model.Todo;
+import willydekeyser.model.dto.CommentUpdate;
+import willydekeyser.model.dto.TodoCreate;
 import willydekeyser.model.dto.TodoDetails;
+import willydekeyser.model.dto.TodoUpdate;
 import willydekeyser.service.TodoService;
 
 @RestController
@@ -41,41 +43,37 @@ public class TodoController {
 	}
 	
 	@PostMapping
-	public Todo createTodo(@RequestBody Todo todo) {
+	public Todo createTodo(@RequestBody TodoCreate todo) {
 		return todoService.createTodo(todo);
 	}
 	
 	@PostMapping("/all")
-	public List<Todo> createListTodo(@RequestBody List<Todo> todo) {
+	public List<Todo> createListTodo(@RequestBody List<TodoCreate> todo) {
 		return todoService.createListTodo(todo);
 	}
 	
 	@PostMapping("/{id}/comment")
-	public Todo todoAddComment(@PathVariable("id") Integer id, @RequestBody Comment comment) {
-		Todo todo = todoService.getTodoById(id).orElse(null);
-		todo.addComment(comment);
-		return todoService.createTodo(todo);
+	public Todo todoAddComment(@PathVariable("id") Integer id, @RequestBody CommentUpdate comment) {
+		return todoService.todoAddComment(id, comment);
 	}
 	
 	@PostMapping("/{id}/comment/all")
-	public Todo todoAddListComment(@PathVariable("id") Integer id, @RequestBody List<Comment> comments) {
-		Todo todo = todoService.getTodoById(id).orElse(null);
-		comments.forEach(comment -> todo.addComment(comment));
-		return todoService.createTodo(todo);
+	public Todo todoAddListComment(@PathVariable("id") Integer id, @RequestBody List<CommentUpdate> comments) {
+		return todoService.todoAddListComment(id, comments);
 	}
 	
 	@PutMapping
-	public Todo updateTodo(Todo todo) {
+	public Todo updateTodo(@RequestBody TodoUpdate todo) {
 		return todoService.updateTodo(todo);
 	}
 	
 	@PatchMapping
-	public Todo patchTodo(Todo todo) {
-		return todoService.patchTodo(todo);
+	public Todo patchTodo(@RequestBody TodoUpdate todo) {
+		return todoService.updateTodo(todo);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteTodo(Integer id) {
+	public void deleteTodo(@PathVariable("id") Integer id) {
 		todoService.deleteTodo(id);
 	}
 	
