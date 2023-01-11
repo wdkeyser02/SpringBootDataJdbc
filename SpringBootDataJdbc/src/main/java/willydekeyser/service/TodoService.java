@@ -1,14 +1,14 @@
 package willydekeyser.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import willydekeyser.mapper.CommentMapper;
+import willydekeyser.mapper.TodoMapper;
 import willydekeyser.model.Comment;
 import willydekeyser.model.Owner;
 import willydekeyser.model.Todo;
@@ -25,6 +25,8 @@ public class TodoService {
 
 	private final TodoRepository todoRepository;
 	private final OwnerRepository ownerRepository;
+	private final TodoMapper todoMapper;
+	private final CommentMapper commentMapper;
 	
 	public List<Todo> getTodos() {
 		return todoRepository.findAll();
@@ -41,73 +43,28 @@ public class TodoService {
 	}
 	
 	public Todo createTodo(TodoCreate todo) {
-		Todo newTodo = Todo.builder()
-				.id(null)
-				.title(todo.title())
-				.content(todo.content())
-				.publishedOn(LocalDateTime.now())
-				.updatedOn(null)
-				.owner(AggregateReference.to(todo.ownerId()))
-				.comments(null)
-				.build();
-		return todoRepository.save(newTodo);
+		return todoRepository.save(todoMapper.todoCreate(todo));
 	}
 	
 	public List<Todo> createListTodo(List<TodoCreate> todos) {
 		List<Todo> newTodos = new ArrayList<>();
-		todos.forEach(todo -> {
-			Todo newTodo = Todo.builder()
-					.id(null)
-					.title(todo.title())
-					.content(todo.content())
-					.publishedOn(LocalDateTime.now())
-					.updatedOn(null)
-					.owner(AggregateReference.to(todo.ownerId()))
-					.comments(null)
-					.build();
-		newTodos.add(newTodo);
-		});
+		todos.forEach(todo -> newTodos.add(todoMapper.todoCreate(todo)));
 		return todoRepository.saveAll(newTodos);
 	}
 	
 	public Todo updateTodo(TodoUpdate todo) {
-		Todo oldTodo = todoRepository.findById(todo.id()).orElse(null);
-		Todo newTodo = Todo.builder()
-				.id(todo.id())
-				.title(todo.title())
-				.content(todo.content())
-				.publishedOn(oldTodo.publishedOn())
-				.updatedOn(LocalDateTime.now())
-				.owner(AggregateReference.to(todo.ownerId()))
-				.comments(todo.comments())
-				.build();
-		return todoRepository.save(newTodo);
+		return todoRepository.save(todoMapper.todoUpdate(todo));
 	}
 	
 	public Todo todoAddComment(Integer id, CommentUpdate comment) {
 		Todo todo = todoRepository.findById(id).orElse(null);
-		Comment newComment = Comment.builder()
-				.name(comment.name())
-				.content(comment.content())
-				.publishedOn(LocalDateTime.now())
-				.updatedOn(null)
-				.build();
-		todo.addComment(newComment);
+		todo.addComment(commentMapper.CommentUpdate(comment));
 		return todoRepository.save(todo);
 	}
 	
 	public Todo todoAddListComment(Integer id, List<CommentUpdate> comments) {
 		Todo todo = todoRepository.findById(id).orElse(null);
-		comments.forEach(comment -> {
-			Comment newComment = Comment.builder()
-					.name(comment.name())
-					.content(comment.content())
-					.publishedOn(LocalDateTime.now())
-					.updatedOn(null)
-					.build();
-			System.err.println(newComment);
-			todo.addComment(newComment);
-		});
+		comments.forEach(comment -> todo.addComment(commentMapper.CommentUpdate(comment)));
 		return todoRepository.save(todo);
 	}
 	
