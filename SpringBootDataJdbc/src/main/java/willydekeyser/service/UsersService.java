@@ -36,6 +36,24 @@ public class UsersService {
 		return usersRepository.save(users);
 	}
 	
+	public UsersDetails addAuthorities(Integer id, Authorities authorities) {
+		Users users = usersRepository.findById(id).get();
+		Authorities authority = authoritiesRepository.findById(authorities.id()).orElse(null);
+		users.addAuthorities(authority);
+		Users newUsers = usersRepository.save(users);
+		List<Authorities> newAuthorities = authoritiesRepository.findAllAuthoritiesByUsers(newUsers.id());
+		return new UsersDetails(newUsers, newAuthorities);
+	}
+	
+	public UsersDetails removeAuthorities(Integer id, Authorities authorities) {
+		Users users = usersRepository.findById(id).get();
+		Authorities authority = authoritiesRepository.findById(authorities.id()).orElse(null);
+		users.removeAuthorities(authority);
+		Users newUsers = usersRepository.save(users);
+		List<Authorities> newAuthorities = authoritiesRepository.findAllAuthoritiesByUsers(newUsers.id());
+		return new UsersDetails(newUsers, newAuthorities);
+	}
+		
 	public Users updateUsers(Users users) {
 		return usersRepository.save(users);
 	}

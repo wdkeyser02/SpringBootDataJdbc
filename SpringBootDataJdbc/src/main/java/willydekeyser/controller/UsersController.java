@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import willydekeyser.model.Authorities;
 import willydekeyser.model.Users;
 import willydekeyser.model.dto.UsersDetails;
 import willydekeyser.service.UsersService;
@@ -41,6 +42,16 @@ public class UsersController {
 	@PostMapping
 	public Users createUsers(@RequestBody Users users) {
 		return usersService.createUsers(users);
+	}
+	
+	@PutMapping("/{id}/add")
+	public UsersDetails addAuthoritiesUsers(@PathVariable("id") Integer id, @RequestBody Authorities authorities) {
+		return usersService.addAuthorities(id, authorities);
+	}
+	
+	@PutMapping("/{id}/remove")
+	public UsersDetails removeAuthoritiesUsers(@PathVariable("id") Integer id, @RequestBody Authorities authorities) {
+		return usersService.removeAuthorities(id, authorities);
 	}
 	
 	@PutMapping

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -26,5 +27,13 @@ public record Users(
 		String emailAddress,
 		LocalDate birthdate,
 		@JsonIgnore @MappedCollection(idColumn = "users_id", keyColumn = "authorities_id") Set<UsersAuthorities> authorities) {
-
+	
+	public void addAuthorities(Authorities authorities) {
+		this.authorities.add(new UsersAuthorities(AggregateReference.to(authorities.id())));
+	}
+	
+	public void removeAuthorities(Authorities authorities) {
+		this.authorities.remove(new UsersAuthorities(AggregateReference.to(authorities.id())));
+	}
+	
 }
