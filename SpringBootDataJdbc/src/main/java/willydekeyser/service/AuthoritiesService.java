@@ -31,4 +31,16 @@ public class AuthoritiesService {
 		List<Users> users = usersRepository.findAllUsersByAuthorities(id);
 		return new AuthoritiesDetails(authorities, users);
 	}
+	
+	public Authorities createAuthorities(Authorities authorities) {
+		return authoritiesRepository.save(authorities);
+	}
+	
+	public Authorities updateAuthorities(Authorities authorities) {
+		return authoritiesRepository.save(authorities);
+	}
+	
+	public void deleteAuthorities(Integer id) {
+		authoritiesRepository.deleteById(id);
+	}
 }
