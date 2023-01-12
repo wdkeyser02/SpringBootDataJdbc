@@ -14,8 +14,8 @@ public class CommentMapper {
 		return Comment.builder()
 			.name(comment.name())
 			.content(comment.content())
-			.publishedOn(LocalDateTime.now())
-			.updatedOn(null)
+			.publishedOn(null)
+			.updatedOn(LocalDateTime.now())
 			.build();
 	}
 
