@@ -53,7 +53,8 @@ public class TodoService {
 	}
 	
 	public Todo updateTodo(TodoUpdate todo) {
-		return todoRepository.save(todoMapper.todoUpdate(todo));
+		Todo oldTodo = todoRepository.findById(todo.id()).orElse(null);
+		return todoRepository.save(todoMapper.todoUpdate(oldTodo, todo));
 	}
 	
 	public Todo todoAddComment(Integer id, CommentUpdate comment) {
