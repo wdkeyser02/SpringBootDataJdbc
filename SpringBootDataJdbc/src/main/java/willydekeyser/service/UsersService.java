@@ -38,8 +38,7 @@ public class UsersService {
 	
 	public UsersDetails addAuthorities(Integer id, Authorities authorities) {
 		Users users = usersRepository.findById(id).get();
-		Authorities authority = authoritiesRepository.findById(authorities.id()).orElse(null);
-		users.addAuthorities(authority);
+		users.addAuthorities(authorities);
 		Users newUsers = usersRepository.save(users);
 		List<Authorities> newAuthorities = authoritiesRepository.findAllAuthoritiesByUsers(newUsers.id());
 		return new UsersDetails(newUsers, newAuthorities);
@@ -47,8 +46,7 @@ public class UsersService {
 	
 	public UsersDetails removeAuthorities(Integer id, Authorities authorities) {
 		Users users = usersRepository.findById(id).get();
-		Authorities authority = authoritiesRepository.findById(authorities.id()).orElse(null);
-		users.removeAuthorities(authority);
+		users.removeAuthorities(authorities);
 		Users newUsers = usersRepository.save(users);
 		List<Authorities> newAuthorities = authoritiesRepository.findAllAuthoritiesByUsers(newUsers.id());
 		return new UsersDetails(newUsers, newAuthorities);
